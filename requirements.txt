@@ -1,0 +1,5 @@
+aiogram
+aiohttp
+gspread
+google-auth
+python-dotenv==1.0.0 
