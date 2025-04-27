@@ -12,7 +12,7 @@ if creds_json is None:
 
 creds_dict = json.loads(creds_json)
 
-CREDS = Credentials.from_service_account_file(creds_dict, scopes=SCOPES)
+CREDS = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
 
 def save_to_google_sheet(name: str, phone: str):
     try:
