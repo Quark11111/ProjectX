@@ -1,6 +1,7 @@
 import asyncio 
 import aiohttp
-from config import BOT_TOKEN
+import os
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -9,12 +10,14 @@ from aiogram.client.bot import DefaultBotProperties
 from aiogram.types import BotCommand
 from handlers import start, application, services 
 
-TOKEN = (BOT_TOKEN)
+load_dotenv()
+
+TOKEN = os.getenv('BOT_TOKEN')
 
 async def main():
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
-    dp = Dispatcher()
+    dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_router(start.router)
     dp.include_router(application.router)
