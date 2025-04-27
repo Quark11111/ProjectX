@@ -1,9 +1,18 @@
 import gspread
+import os
+import json
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-CREDS = Credentials.from_service_account_file('utils/creds.json', scopes=SCOPES)
+
+creds_json = os.getenv('GOOGLE_CREDS_JSON')
+if creds_json is None:
+    raise ValueError("Переменная окружения GOOGLE_CREDS_JSON не установлена!")
+
+creds_dict = json.loads(creds_json)
+
+CREDS = Credentials.from_service_account_file(creds_dict, scopes=SCOPES)
 
 def save_to_google_sheet(name: str, phone: str):
     try:
